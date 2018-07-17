@@ -645,6 +645,7 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
                 var newUtilizador = new Utilizador(xhr.response.insertId, email, password, role);
                 info1.utilizadores.push(newUtilizador);
                 document.getElementById("Home").style.display="inline";
+                info1.showUtilizador();
             }
         }
         xhr.open("POST", "http://localhost:8081/utilizador", true);
