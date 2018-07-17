@@ -78,7 +78,7 @@ ul#menu a:hover {
     width: 45%;
 }
 
-#enviarCandidatura, #renovacaoContrato, #Mensagens, #Candidaturas, #Renovacoes, #criarMensagem{
+#enviarCandidatura, #renovacaoContrato, #Mensagens, #Candidaturas, #Renovacoes, #criarMensagem, #Emails{
     display: none;
 }
 
@@ -223,15 +223,12 @@ footer{
     width: 45%;
 }
 
-#formMensagem{
+#Utilizadores{
     float: left;
-    width: 45%;
+    width:100%;
 }
 
-#enviarEmail{
-    float: right;
-    width: 45%;
-}
+
 
 
 

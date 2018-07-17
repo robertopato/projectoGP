@@ -65,6 +65,9 @@
                                         <li>
                                                 <a href="javascript: viewRenovacoes();">Contratos</a>
                                         </li>
+                                        <li>
+                                                <a href="javascript: viewEmails();">Enviar Email</a>
+                                        </li>
                                 </ul>
                         </nav>
                 </div>
@@ -72,7 +75,7 @@
                 <div id="Home">
                 
                         <div id="register">
-                                <form id="formRegister">
+                                <form id="formRegister" action="javascript: info1.processingUtilizador('create');">
                                         <fieldset>
                                                 <legend>Registo:</legend>
                                                 <input id="id" type="hidden"/>
@@ -85,7 +88,7 @@
                                                 <input id="password" type="text">
                                                 <br> 
                                                 <br>    
-                                                <select name="role">
+                                                <select name="role" id="role">
                                                         <option value="gestor">Gestor</option>
                                                         <option value="docente">Docente</option>
                                                         <option value="candidato">Candidato</option>
@@ -118,6 +121,11 @@
              
 
         </div>
+        <br> 
+        <br> 
+        <br> 
+        <a id="Utilizadores" href="javascript: info1.showUtilizador();">Lista Utilizadores</a>
+        
                 </div>
                       
                         <div id="enviarCandidatura">
@@ -199,25 +207,7 @@
                                                 <input type="submit" value="Enviar Mensagem">
                                         </fieldset>
                                 </form>
-                                <form id="enviarEmail" action="mailto:robertofspato@gmail.com?subject=Mensagem do Sistema de Gestão de Candidaturas" method="post" enctype="text/plain">
-                                        <fieldset>
-                                                <legend>Introduza a informação:</legend>
-                                                <input id="id" type="hidden"/>
-                                                <label for="tema">Tema da Mensagem:</label>
-                                                <input name="Tema" type="text" />
-                                                <br>
-                                                <label for="corpoMensagem">Corpo da Mensagem</label>
-                                                <br>
-                                                <textarea name="Corpo da mensagem" rows="20" cols="60"></textarea>
-                                                <br>
-                                                <label for="emailGestor1">Por defeito a mensagem é enviada para o gestor.</label>
-                                                <br>   
-                                                <label for="emailGestor1"> Alterar caso necessário.
-                                                </label>
-                                                <br>                                    
-                                                <input type="submit" value="Enviar Email">
-                                        </fieldset>
-                                        </form>
+                                
                    
               
         </div>
@@ -235,7 +225,27 @@
                                 <!--<button onclick="viewAddStatisticType()">Adicionar</button>-->
         
                  </div>
-               
+                 <div id="Emails">
+                        <form id="enviarEmail" action="mailto:robertofspato@gmail.com?subject=Mensagem do Sistema de Gestão de Candidaturas" method="post" enctype="text/plain">
+                                <fieldset>
+                                        <legend>Introduza a informação:</legend>
+                                        <input id="id" type="hidden"/>
+                                        <label for="tema">Tema da Mensagem:</label>
+                                        <input name="Tema" type="text" />
+                                        <br>
+                                        <label for="corpoMensagem">Corpo da Mensagem</label>
+                                        <br>
+                                        <textarea name="Corpo da mensagem" rows="20" cols="60"></textarea>
+                                        <br>
+                                        <label for="emailGestor1">Por defeito a mensagem é enviada para o gestor.</label>
+                                        <br>   
+                                        <label for="emailGestor1"> Alterar caso necessário.
+                                        </label>
+                                        <br>                                    
+                                        <input type="submit" value="Enviar Email">
+                                </fieldset>
+                                </form>
+                 </div>
 
                 <!-- <footer>2018 All rights reserved</footer> -->
         </article>

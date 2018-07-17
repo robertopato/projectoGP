@@ -26,6 +26,7 @@ function viewHome() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
  function viewEnviarCandidaturas() {
@@ -48,6 +49,7 @@ function viewHome() {
     document.getElementById("enviarCandidatura").style.display="inline";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
 function viewRenovacaoContratos() {
@@ -70,6 +72,7 @@ function viewRenovacaoContratos() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="inline";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
 function viewMensagens() {
@@ -91,6 +94,7 @@ function viewMensagens() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
 function viewCandidaturas() {
@@ -105,6 +109,7 @@ function viewCandidaturas() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
 function viewRenovacoes () {
@@ -126,9 +131,23 @@ function viewRenovacoes () {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("Emails").style.display="none";
 };
 
-
+function viewEmails(){
+document.getElementById("Home").style.display="none";
+document.getElementById("register").style.display="none";
+document.getElementById("login").style.display="none";
+document.getElementById("enviarCandidatura").style.display="none";
+document.getElementById("renovacaoContrato").style.display="none";
+document.getElementById("Mensagens").style.display="none";
+document.getElementById("Candidaturas").style.display="none";
+document.getElementById("Renovacoes").style.display="none";
+document.getElementById("enviarCandidatura").style.display="none";
+document.getElementById("renovacaoContrato").style.display="none";
+document.getElementById("criarMensagem").style.display="none";
+document.getElementById("Emails").style.display="inline";
+}
 
 /**
  * Função que será executada quando a página estiver toda carregada, criando a variável global "info" com um objeto Information
@@ -201,7 +220,8 @@ function InfoMensagem(id){
 * @param {Date} dataDeNasc - data de nascimento da pessoa
 * @param {string} país - país da pessoa
 */
-function Utilizador(email, password, role) {
+function Utilizador(id, email, password, role) {
+    this.id=id;
     this.email = email;
     this.password = password;
     this.role = role;
@@ -263,19 +283,19 @@ Information.prototype.showHome = function () {
 /**
  * coloca a palavra "Player" no div titulo e cria dinamicamente uma tabela com a informação dos jogadores
  */
-/*
-InfoJogador.prototype.showPlayer = function () {
+
+InfoUtilizador.prototype.showUtilizador = function () {
     //document.getElementById("headerTitle").textContent="Players";
-    document.getElementById("formPlayer").style.display="none";
     var table = document.createElement("table");
-    table.id="tablePlayer";
-    table.appendChild(tableHead(new Player()));
-    for(var i=0;i<this.players.length;i++){
-        table.appendChild(tableLine(this.players[i]));
+    table.id="tableUtilizador";
+    table.appendChild(tableHeadWithoutCheckBox(new Utilizador()));
+    for(var i=0;i<this.utilizadores.length;i++){
+        table.appendChild(tableLineWithoutCheckbox(this.utilizadores[i]));
     }
     var divTable = document.createElement("div");
     divTable.setAttribute("id", "divTable");
     divTable.appendChild(table);
+    replaceChilds(this.id, divTable);}/*
     function deletePlayerEventHandler(){
         var table = document.getElementById("tablePlayer");
         for (var i = 1, row; row = table.rows[i]; i++) {
@@ -286,7 +306,7 @@ InfoJogador.prototype.showPlayer = function () {
             }
         }
     }
-    *//*
+    
     function newUtilizadorEventHandler(){
         replaceChilds("divTable",document.createElement("div"));
         document.getElementById("formRegister").action="javascript: info1.processingUtilizador('create');";
@@ -528,7 +548,7 @@ InfoUtilizador.prototype.getUtilizador = function (){
             var response = JSON.parse(xhr.responseText);
             info1.utilizadores = [];
             response.utilizador.forEach(function(current){
-                info1.utilizadores.push(new Utilizador(current.email, current.password, current.role));
+                info1.utilizadores.push(new Utilizador(current.id, current.email, current.password, current.role));
             });
         }
     };
@@ -614,7 +634,8 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
     var id = document.getElementById("id").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var role = document.getElementById("role").value;
+    var e = document.getElementById("role");
+    var role = e.options[e.selectedIndex].text;
     var utilizador = {id: id, email:email, password: password, role: role};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
@@ -623,7 +644,7 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
                 var newUtilizador = new Utilizador(xhr.response.insertId, email, password, role);
                 info1.utilizadores.push(newUtilizador);
-                info1.showUtilizador();
+                document.getElementById("Home").style.display="inline";
             }
         }
         xhr.open("POST", "http://localhost:8081/utilizador", true);
