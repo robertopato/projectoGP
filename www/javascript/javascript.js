@@ -147,6 +147,7 @@ document.getElementById("enviarCandidatura").style.display="none";
 document.getElementById("renovacaoContrato").style.display="none";
 document.getElementById("criarMensagem").style.display="none";
 document.getElementById("Emails").style.display="inline";
+document.getElementById("enviarEmail").style.display="inline";
 }
 
 /**
@@ -645,7 +646,6 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
                 var newUtilizador = new Utilizador(xhr.response.insertId, email, password, role);
                 info1.utilizadores.push(newUtilizador);
                 document.getElementById("Home").style.display="inline";
-                info1.showUtilizador();
             }
         }
         xhr.open("POST", "http://localhost:8081/utilizador", true);
