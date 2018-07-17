@@ -8,6 +8,8 @@
         <link rel="stylesheet" type="text/css" href="home.css">
         <title>Sistema de Gestão de Candidaturas</title>
         <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+        <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        
 <script>
   // Initialize Firebase
   var config = {
@@ -73,7 +75,7 @@
                                 <form id="formRegister">
                                         <fieldset>
                                                 <legend>Registo:</legend>
-                                                
+                                                <input id="id" type="hidden"/>
                                                 <label for="email">Email:</label>
                                                 <br>
                                                 <input id="email" type="text">
@@ -123,8 +125,8 @@
                                         <fieldset>
                                                 <legend>Introduza a informação:</legend>
                                                 <input id="id" type="hidden"/>
-                                                <label for="email">Email:</label>
-                                                <input id="email" type="text">
+                                                <label for="emailSender">Email:</label>
+                                                <input id="emailSender" type="text">
                                                 <br>
                                                 <label for="curriculum">Curriculum:</label>
                                                 <input id="curriculum" type="text">
@@ -135,6 +137,8 @@
                                                 <input type="submit" value="Criar Candidatura">
                                         </fieldset>
                                 </form>
+                               
+                                        
                      
 
                 </div>
@@ -147,8 +151,8 @@
                         <fieldset>
                                 <legend>Introduza a informação:</legend>
                                 <input id="id" type="hidden"/>
-                                <label for="email">Email:</label>
-                                <input id="email" type="text">
+                                <label for="emailEnvio">Email:</label>
+                                <input id="emailEnvio" type="text">
                                 <br>
                                 <label for="dadosRenovacao">Dados de renovação:</label>
                                 <input id="dadosRenovacao" type="text">
@@ -180,27 +184,45 @@
                                                 <label for="corpoMensagem">Corpo da Mensagem:</label>
                                                 <input id="corpoMensagem" type="text">
                                                 <br>
-                                                <label for="tema">Tema:</label>
-                                                <input id="tema" type="text">
-                                                <br>
                                                 <label for="emailReceber">Email Recetor:</label>
                                                 <input id="emailReceber" type="text">
                                                 <label for="emailGestor">Email do Gestor: robertofspato@gmail.com</label>
                                                 <br>
+                                                <label for="tema">Tema:</label>
+                                                <input id="tema" type="text">
+                                                <br>                                         
                                                 <input type="submit" value="Enviar Mensagem">
                                         </fieldset>
                                 </form>
+                                <form id="enviarEmail" action="mailto:robertofspato@gmail.com?subject=Mensagem do Sistema de Gestão de Candidaturas" method="post" enctype="text/plain">
+                                        <fieldset>
+                                                <legend>Introduza a informação:</legend>
+                                                <input id="id" type="hidden"/>
+                                                <label for="tema">Tema da Mensagem:</label>
+                                                <input name="Tema" type="text" />
+                                                <br>
+                                                <label for="corpoMensagem">Corpo da Mensagem</label>
+                                                <textarea name="Corpo da mensagem"></textarea>
+                                                <br>
+                                                <label for="emailGestor1">Por defeito a mensagem é enviada para o gestor.</label>
+                                                <br>   
+                                                <label for="emailGestor1"> Alterar caso necessário.
+                                                </label>
+                                                <br>                                    
+                                                <input type="submit" value="Enviar Email">
+                                        </fieldset>
+                                        </form>
                    
               
         </div>
-                <div id="candidaturas">
+                <div id="Candidaturas">
                         <li>
                                 <a id="menuCandidaturas" href="javascript: info2.showCandidatura();">Candidaturas</a>
                         </li>
                         <!--<button onclick="viewAddStatisticType()">Adicionar</button>-->
 
                 </div>
-                <div id="renovacoes">
+                <div id="Renovacoes">
                                 <li>
                                         <a id="menuContratos" href="javascript: info3.showRenovacao();">Renovações de Contrato</a>
                                 </li>

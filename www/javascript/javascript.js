@@ -21,8 +21,8 @@ function viewHome() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("Mensagens").style.display="none";
-    document.getElementById("candidaturas").style.display="none";
-    document.getElementById("renovacoes").style.display="none";
+    document.getElementById("Candidaturas").style.display="none";
+    document.getElementById("Renovacoes").style.display="none";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
@@ -40,10 +40,11 @@ function viewHome() {
     document.getElementById("register").style.display="none";
     document.getElementById("login").style.display="none";
     document.getElementById("enviarCandidatura").style.display="inline";
+    document.getElementById("formCandidatura").style.display="inline";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("Mensagens").style.display="none";
-    document.getElementById("candidaturas").style.display="none";
-    document.getElementById("renovacoes").style.display="none";
+    document.getElementById("Candidaturas").style.display="none";
+    document.getElementById("Renovacoes").style.display="none";
     document.getElementById("enviarCandidatura").style.display="inline";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
@@ -62,9 +63,10 @@ function viewRenovacaoContratos() {
     document.getElementById("login").style.display="none";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="inline";
+    document.getElementById("formRenovacaoContrato").style.display="inline";
     document.getElementById("Mensagens").style.display="none";
-    document.getElementById("candidaturas").style.display="none";
-    document.getElementById("renovacoes").style.display="none";
+    document.getElementById("Candidaturas").style.display="none";
+    document.getElementById("Renovacoes").style.display="none";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="inline";
     document.getElementById("criarMensagem").style.display="none";
@@ -84,8 +86,8 @@ function viewMensagens() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("Mensagens").style.display="inline";
-    document.getElementById("candidaturas").style.display="none";
-    document.getElementById("renovacoes").style.display="none";
+    document.getElementById("Candidaturas").style.display="none";
+    document.getElementById("Renovacoes").style.display="none";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
@@ -98,8 +100,8 @@ function viewCandidaturas() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("Mensagens").style.display="none";
-    document.getElementById("candidaturas").style.display="inline";
-    document.getElementById("renovacoes").style.display="none";
+    document.getElementById("Candidaturas").style.display="inline";
+    document.getElementById("Renovacoes").style.display="none";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
@@ -119,8 +121,8 @@ function viewRenovacoes () {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("Mensagens").style.display="none";
-    document.getElementById("candidaturas").style.display="none";
-    document.getElementById("renovacoes").style.display="inline";
+    document.getElementById("Candidaturas").style.display="none";
+    document.getElementById("Renovacoes").style.display="inline";
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
@@ -214,9 +216,9 @@ function Utilizador(email, password, role) {
 * @param {string} nomeJogador - nome do Jogador
 */
 
-function Candidatura(id, email, curriculum, cartaIntencoes) {
+function Candidatura(id, emailSender, curriculum, cartaIntencoes) {
     this.id=id;
-    this.email = email;
+    this.emailSender = emailSender;
     this.curriculum = curriculum;
     this.cartaIntencoes = cartaIntencoes;
 };
@@ -229,9 +231,9 @@ function Candidatura(id, email, curriculum, cartaIntencoes) {
 * @param {string} tipo - tipo da estatistica
 * @param {int} sessaoJogo - Id da sessão do jogo
 */
-function Renovacao(id, email, dadosRenovacao){
+function Renovacao(id, emailEnvio, dadosRenovacao){
     this.id=id;
-    this.email=email;
+    this.emailEnvio=emailEnvio;
     this.dadosRenovacao=dadosRenovacao;
 };
 
@@ -335,7 +337,8 @@ InfoCandidatura.prototype.showCandidatura = function () {
     var divTable = document.createElement("divTable");
     divTable.setAttribute("id", "divTable");
     divTable.appendChild(table);
-    /*
+    replaceChilds(this.id, divTable);
+        /*
     function deleteCandidaturaEventHandler(){
         var table = document.getElementById("tableCandidatura");
         for (var i = 1, row; row = table.rows[i]; i++) {
@@ -381,7 +384,7 @@ InfoCandidatura.prototype.showCandidatura = function () {
     createButton(divTable, newGameSessionEventHandler, "New Game Session");*/
     //createButton(divTable, deleteCandidaturaEventHandler, "Delete Candidatura");
     //createButton(divTable, updateGameSessionEventHandler, "Update Game Session");
-    replaceChilds(this.id,divTable);
+    //replaceChilds(this.id,divTable);
 };
 
 /**
@@ -400,7 +403,7 @@ InfoRenovacao.prototype.showRenovacao = function () {
     var divTable = document.createElement("divTable");
     divTable.setAttribute("id", "divTable");
     divTable.appendChild(table);
-    
+    replaceChilds(this.id, divTable);
     /*function deleteStatisticEventHandler(){
         var table = document.getElementById("tableStatistic");
         for (var i = 1, row; row = table.rows[i]; i++) {
@@ -444,7 +447,7 @@ InfoRenovacao.prototype.showRenovacao = function () {
     createButton(divTable, newStatisticEventHandler, "New Statistic");
     createButton(divTable, deleteStatisticEventHandler, "Delete Statistic");
     createButton(divTable, updateStatisticEventHandler, "Update Statistic");*/
-    replaceChilds(this.id,divTable);
+    //replaceChilds(this.id,divTable);
 };
 
 
@@ -543,7 +546,7 @@ InfoCandidatura.prototype.getCandidatura = function (){
             var response = JSON.parse(xhr.responseText);
             info2.candidaturas = [];
             response.candidaturas.forEach(function(current){
-                info2.candidaturas.push(new Candidatura(current.id, current.email, current.curriculum, current.cartaIntencoes));
+                info2.candidaturas.push(new Candidatura(current.id, current.emailSender, current.curriculum, current.cartaIntencoes));
                 
             });
         }
@@ -563,7 +566,7 @@ InfoRenovacao.prototype.getRenovacao = function (){
             var response = JSON.parse(xhr.responseText);
             info3.renovacoes = [];
             response.renovacao.forEach(function(current){
-                info3.renovacoes.push(new Renovacao(current.id, current.email, current.dadosRenovacao));
+                info3.renovacoes.push(new Renovacao(current.id, current.emailEnvio, current.dadosRenovacao));
                 
             });
         }
@@ -607,16 +610,17 @@ InfoMensagem.prototype.removeMensagem = function (id){
 }
 
 InfoUtilizador.prototype.processingUtilizador = function (acao) {
+    var id = document.getElementById("id").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var role = document.getElementById("role").value;
-    var utilizador = {email:email, password: password, role: role};
+    var utilizador = {id: id, email:email, password: password, role: role};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
     if (acao === "create") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
-                var newUtilizador = new Utilizador(email, password, role);
+                var newUtilizador = new Utilizador(xhr.response.insertId, email, password, role);
                 info1.utilizadores.push(newUtilizador);
                 info1.showUtilizador();
             }
@@ -638,20 +642,22 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
 
 InfoCandidatura.prototype.processingCandidatura = function (acao) {
     var id = document.getElementById("id").value;
-    var email = document.getElementById("email").value;
+    var emailSender = document.getElementById("emailSender").value;
     var curriculum = document.getElementById("curriculum").value;
     var cartaIntencoes = document.getElementById("cartaIntencoes").value;
-    var candidatura = {id: id, email:email, curriculum: curriculum, cartaIntencoes: cartaIntencoes};
+    var candidatura = {id: id, emailSender: emailSender, curriculum: curriculum, cartaIntencoes: cartaIntencoes};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
     if (acao === "create") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
-                var newCandidatura = new Candidatura(xhr.response.insertId, email, curriculum, cartaIntencoes);
+                var newCandidatura = new Candidatura(xhr.response.insertId, emailSender, curriculum, cartaIntencoes);
                 info2.candidaturas.push(newCandidatura);
                 info2.showCandidatura();
+                //document.getElementById("enviarCandidatura").style.display="block";
             }
         }
+        
         xhr.open("POST", "http://localhost:8081/candidatura", true);
     }/* else if (acao === "update") {
         xhr.onreadystatechange = function () {
@@ -669,17 +675,18 @@ InfoCandidatura.prototype.processingCandidatura = function (acao) {
 
 InfoRenovacao.prototype.processingRenovacao = function (acao) {
     var id = document.getElementById("id").value;
-    var email = document.getElementById("email").value;
+    var emailEnvio = document.getElementById("emailEnvio").value;
     var dadosRenovacao = document.getElementById("dadosRenovacao").value;
-    var renovacao = {id: id, email:email, dadosRenovacao: dadosRenovacao};
+    var renovacao = {id: id, emailEnvio: emailEnvio, dadosRenovacao: dadosRenovacao};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
     if (acao === "create") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
-                var newRenovacao = new Renovacao(xhr.response.insertId, email, dadosRenovacao);
+                var newRenovacao = new Renovacao(xhr.response.insertId, emailEnvio, dadosRenovacao);
                 info3.renovacoes.push(newRenovacao);
-                //info3.showRenovacao();
+                //document.getElementById("renovacaoContrato").style.display="block";
+                info3.showRenovacao();
             }
         }
         xhr.open("POST", "http://localhost:8081/renovacao", true);
@@ -701,15 +708,15 @@ InfoMensagem.prototype.processingMensagem = function (acao) {
     var id = document.getElementById("id").value;
     var emailEnviar = document.getElementById("emailEnviar").value;
     var corpoMensagem = document.getElementById("corpoMensagem").value;
-    var tema = document.getElementById("tema").value;
     var emailReceber = document.getElementById("emailReceber").value;
-    var mensagem = {id:id, emailEnviar: emailEnviar, corpoMensagem: corpoMensagem, tema: tema, emailReceber: emailReceber};
+    var tema = document.getElementById("tema").value;
+    var mensagem = {id:id, emailEnviar: emailEnviar, corpoMensagem: corpoMensagem, emailReceber: emailReceber,tema: tema};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
     if (acao === "create") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
-                var newMensagem = new Mensagem(xhr.response.insertId,emailEnviar, corpoMensagem, tema, emailReceber);
+                var newMensagem = new Mensagem(xhr.response.insertId,emailEnviar, corpoMensagem, emailReceber, tema);
                 info4.mensagens.push(newMensagem);
                 info4.showMensagem();
             }
@@ -802,25 +809,6 @@ function createCellCheckbox(){
     check.type="checkbox";
     td.appendChild(check);
     return td;
-}
-
-function sendEmail() {
-
-    var emailEnviar = document.getElementById("emailEnviar").value;
-    var corpoMensagem = document.getElementById("corpoMensagem").value;
-    var tema = document.getElementById("tema").value;
-    var emailReceber = document.getElementById("emailReceber").value;
-    
-    document.write( '<a href="mailto:' + emailReceber +
-
-        '?subject=' +tema+
-
-        '&cc=' +emailEnviar+
-
-        '&body=' +corpoMensagem+
-
-        '">' + 'Send Email' + '<' + '/a>');
-    
 }
 
 

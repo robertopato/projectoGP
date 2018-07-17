@@ -11,7 +11,7 @@ function getUtilizadores(req, res) {
     console.log("Olá");
     var connection = mysql.createConnection(options);
     connection.connect();
-    var query = "select email, password, role from utilizador";
+    var query = "select id, email, password, role from utilizador";
     connection.query(query, function (err, rows) {
         if (err) {
             console.log("erro:" + err.message);
@@ -34,7 +34,7 @@ function getCandidaturas(req, res) {
     console.log("Olás");
     var connection = mysql.createConnection(options);
     connection.connect();
-    var query = "select email, curriculum, cartaIntencoes from candidatura";
+    var query = "select id, emailSender, curriculum, cartaIntencoes from candidatura";
     connection.query(query, function (err, rows) {
         if (err) {
             console.log("erro: " + err.message);
@@ -56,7 +56,7 @@ function getRenovacoes(req, res) {
     console.log("Olássss");
     var connection = mysql.createConnection(options);
     connection.connect();
-    var query = "select email, dadosRenovacao from renovacao";
+    var query = "select id, emailEnvio, dadosRenovacao from renovacao";
     connection.query(query, function (err, rows) {
         if (err) {
             console.log("erro: " + err.message);
@@ -138,12 +138,12 @@ module.exports.createUpdateUtilizador = createUpdateUtilizador;
 function createUpdateCandidatura(req, res) {
     var connection = mysql.createConnection(options);
     connection.connect();
-    var email = req.body.email;
+    var emailSender = req.body.emailSender;
     var curriculum = (req.body.curriculum) ? req.body.curriculum : null;
     var cartaIntencoes = (req.body.cartaIntencoes) ? req.body.cartaIntencoes : null;
     var sql;
         if (req.method === "POST") {
-            sql = mysql.format("INSERT INTO candidatura(email, curriculum, cartaIntencoes) VALUES (?,?,?)", [email, curriculum, cartaIntencoes]);
+            sql = mysql.format("INSERT INTO candidatura(emailSender, curriculum, cartaIntencoes) VALUES (?,?,?)", [emailSender, curriculum, cartaIntencoes]);
         }
     
     connection.query(sql,function (err, rows, fields) {
@@ -175,11 +175,11 @@ module.exports.createUpdateCandidatura = createUpdateCandidatura;
 function createUpdateRenovacao(req, res) {
     var connection = mysql.createConnection(options);
     connection.connect();
-    var email = req.body.email;
+    var emailEnvio = req.body.emailEnvio;
     var dadosRenovacao = (req.body.dadosRenovacao) ? req.body.dadosRenovacao : null;
     var sql;
         if (req.method === "POST") {
-            sql = mysql.format("INSERT INTO renovacao(email, dadosRenovacao) VALUES (?,?)", [email, dadosRenovacao]);
+            sql = mysql.format("INSERT INTO renovacao(emailEnvio, dadosRenovacao) VALUES (?,?)", [emailEnvio, dadosRenovacao]);
         }
     
     connection.query(sql,function (err, rows, fields) {
@@ -211,7 +211,7 @@ function createUpdateMensagem(req, res) {
     var emailReceber = (req.body.emailReceber) ? req.body.emailReceber : null;
     var sql;
         if (req.method === "POST") {
-            sql = mysql.format("INSERT INTO mensagem(emailEnviar, corpoMensagem, tema, emailReceber) VALUES (?,?,?,?)", [emailEnviar, corpoMensagem, tema, emailReceber]);
+            sql = mysql.format("INSERT INTO mensagem(emailEnviar, corpoMensagem, emailReceber, tema) VALUES (?,?,?,?)", [emailEnviar, corpoMensagem, emailReceber, tema]);
             
         }
     

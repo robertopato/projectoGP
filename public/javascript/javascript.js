@@ -5,7 +5,39 @@
  * Coloca a informação numa ul HTML "dentro" do elemento com id=this.id
  * @param {string} separador - texto separador de cada campo do ItemInformacao.
  */
+var database = firebase.database();
 
+function writeUserData(id, email, password, role) {
+    firebase.database().ref('users/' + id).set({
+      email: email,
+      password: password,
+      role : role
+    });
+  }
+
+  function writeApplicationData(id, email, curriculum, intentionLetter) {
+    firebase.database().ref('application/' + id).set({
+      email: email,
+      curriculum: curriculum,
+      intentionLetter : intentionLetter
+    });
+  }
+
+  function writeRenovationData(id, email, renovationData) {
+    firebase.database().ref('renovation/' + id).set({
+      email: email,
+      renovationData: renovationData
+    });
+  }
+
+  function writeMessageData(id, senderEmail, messageBody, theme, receiverEmail) {
+    firebase.database().ref('message/' + id).set({
+        senderEmail: senderEmail,
+        messageBody: messageBody,
+        theme : theme,
+        receiverEmail: receiverEmail
+    });
+  }
 
 function viewHome() {
     /** @todo 
@@ -26,6 +58,8 @@ function viewHome() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("emaill").style.display="none";
+    document.getElementById("enviarEmail").style.display="none";
 };
 
  function viewEnviarCandidaturas() {
@@ -47,6 +81,8 @@ function viewHome() {
     document.getElementById("enviarCandidatura").style.display="inline";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("emaill").style.display="none";
+    document.getElementById("enviarEmail").style.display="none";
 };
 
 function viewRenovacaoContratos() {
@@ -68,6 +104,8 @@ function viewRenovacaoContratos() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="inline";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("enviarEmail").style.display="none";
+    document.getElementById("emaill").style.display="none";
 };
 
 function viewMensagens() {
@@ -89,6 +127,9 @@ function viewMensagens() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("emaill").style.display="block";
+    document.getElementById("enviarEmail").style.display="block";
+    
 };
 
 function viewCandidaturas() {
@@ -103,6 +144,8 @@ function viewCandidaturas() {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("enviarEmail").style.display="none";
+    document.getElementById("emaill").style.display="none";
 };
 
 function viewRenovacoes () {
@@ -124,6 +167,8 @@ function viewRenovacoes () {
     document.getElementById("enviarCandidatura").style.display="none";
     document.getElementById("renovacaoContrato").style.display="none";
     document.getElementById("criarMensagem").style.display="none";
+    document.getElementById("enviarEmail").style.display="none";
+    document.getElementById("emaill").style.display="none";
 };
 
 
@@ -596,7 +641,7 @@ InfoMensagem.prototype.getMensagem = function (){
 
 InfoMensagem.prototype.removeMensagem = function (id){
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "/mensagem/"+id, true);
+    xhr.open("DELETE", "/message/"+id, true);
     xhr.onreadystatechange = function () {
         if ((this.readyState === 4) && (this.status === 200)) {
             info4.mensagens.splice(info4.mensagens.findIndex(i => i.id === id),1);
@@ -607,13 +652,14 @@ InfoMensagem.prototype.removeMensagem = function (id){
 }
 
 InfoUtilizador.prototype.processingUtilizador = function (acao) {
+    var id = document.getElementById("id").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var role = document.getElementById("role").value;
     var utilizador = {email:email, password: password, role: role};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
-    if (acao === "create") {
+    if (acao === "create") {/*
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
                 var newUtilizador = new Utilizador(email, password, role);
@@ -621,7 +667,8 @@ InfoUtilizador.prototype.processingUtilizador = function (acao) {
                 info1.showUtilizador();
             }
         }
-        xhr.open("POST", "http://localhost:8081/utilizador", true);
+        xhr.open("POST", "http://localhost:8081/utilizador", true);*/
+        writeUserData(id, email, password, role);
     }/* else if (acao === "update") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
@@ -644,7 +691,7 @@ InfoCandidatura.prototype.processingCandidatura = function (acao) {
     var candidatura = {id: id, email:email, curriculum: curriculum, cartaIntencoes: cartaIntencoes};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
-    if (acao === "create") {
+    if (acao === "create") {/*
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
                 var newCandidatura = new Candidatura(xhr.response.insertId, email, curriculum, cartaIntencoes);
@@ -652,7 +699,8 @@ InfoCandidatura.prototype.processingCandidatura = function (acao) {
                 info2.showCandidatura();
             }
         }
-        xhr.open("POST", "http://localhost:8081/candidatura", true);
+        xhr.open("POST", "http://localhost:8081/candidatura", true);*/
+        writeApplicationData(id, email, curriculum, cartaIntencoes);
     }/* else if (acao === "update") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
@@ -674,7 +722,7 @@ InfoRenovacao.prototype.processingRenovacao = function (acao) {
     var renovacao = {id: id, email:email, dadosRenovacao: dadosRenovacao};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
-    if (acao === "create") {
+    if (acao === "create") {/*
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
                 var newRenovacao = new Renovacao(xhr.response.insertId, email, dadosRenovacao);
@@ -682,7 +730,8 @@ InfoRenovacao.prototype.processingRenovacao = function (acao) {
                 //info3.showRenovacao();
             }
         }
-        xhr.open("POST", "http://localhost:8081/renovacao", true);
+        xhr.open("POST", "http://localhost:8081/renovacao", true);*/
+        writeRenovationData(id, email, dadosRenovacao);
     } /*else if (acao === "update") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
@@ -706,7 +755,7 @@ InfoMensagem.prototype.processingMensagem = function (acao) {
     var mensagem = {id:id, emailEnviar: emailEnviar, corpoMensagem: corpoMensagem, tema: tema, emailReceber: emailReceber};
     var xhr = new XMLHttpRequest();
     xhr.responseType="json";
-    if (acao === "create") {
+    if (acao === "create") {/*
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {
                 var newMensagem = new Mensagem(xhr.response.insertId,emailEnviar, corpoMensagem, tema, emailReceber);
@@ -715,7 +764,9 @@ InfoMensagem.prototype.processingMensagem = function (acao) {
             }
         }
         xhr.open("POST", "http://localhost:8081/mensagem", true);
-        //sendEmail(emailEnviar, corpoMensagem, tema, emailReceber);
+        //sendEmail(emailEnviar, corpoMensagem, tema, emailReceber);*/
+        writeMessageData(id, emailEnviar, corpoMensagem, tema, emailReceber);
+        info4.showMensagem();
     }/* else if (acao === "update") {
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == XMLHttpRequest.DONE) && (this.status === 200)) {

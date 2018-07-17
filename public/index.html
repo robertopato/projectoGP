@@ -20,7 +20,9 @@
     <script defer src="/__/firebase/5.2.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-auth.js"></script>
     <script>
       // Initialize Firebase
       var config = {
@@ -33,6 +35,11 @@
       };
       
       firebase.initializeApp(config);
+
+      var rootRef = firebase.database().ref();  
+
+      // Get a reference to the database service
+        var database = firebase.database();
     </script>
 
 
@@ -73,7 +80,7 @@
                       <form id="formRegister">
                               <fieldset>
                                       <legend>Registo:</legend>
-                                      
+                                      <input id="id" type="hidden"/>
                                       <label for="email">Email:</label>
                                       <br>
                                       <input id="email" type="text">
@@ -164,6 +171,26 @@
               <li>
                       <a id="menuMensagens" href="javascript: info4.showMensagem();">Ver Mensagens</a>
               </li>
+
+              <form id="enviarEmail" action="mailto:robertofspato@gmail.com?subject=Mensagem do Sistema de Gestão de Candidaturas" method="post" enctype="text/plain">
+                <fieldset>
+                        <legend>Introduza a informação:</legend>
+                        <input id="id" type="hidden"/>
+                        <label for="tema">Tema da Mensagem:</label>
+                        <input name="Tema" type="text" />
+                        <br>
+                        <label for="corpoMensagem">Corpo da Mensagem</label>
+                        <textarea name="Corpo da Mensagem"></textarea>
+                        <br>
+                        <label for="emailGestor1">Por defeito a mensagem é enviada para o gestor.</label>
+                        <br>   
+                        <label for="emailGestor1"> Alterar caso necessário.
+                        </label>
+                        <br>                                    
+                        <input type="submit" value="Enviar Email">
+                </fieldset>
+                </form>
+                
       </div>
       
               <!--<button onclick="viewAddStatistic()">Adicionar</button>-->
@@ -190,8 +217,13 @@
                                       <input type="submit" value="Enviar Mensagem">
                               </fieldset>
                       </form>
+
+                      
          
     
+</div>
+<div id = "emaill">
+                
 </div>
       <div id="candidaturas">
               <li>

@@ -78,7 +78,7 @@ ul#menu a:hover {
     width: 45%;
 }
 
-#enviarCandidatura, #renovacaoContrato, #Mensagens, #candidaturas, #renovacoes, #criarMensagem{
+#enviarCandidatura, #renovacaoContrato, #Mensagens, #candidaturas, #renovacoes, #criarMensagem, #emaill, #enviarEmail{
     display: none;
 }
 
@@ -219,6 +219,21 @@ footer{
 }
 
 #login{
+    float: right;
+    width: 45%;
+}
+
+#formMensagem{
+    float: left;
+    width: 45%;
+}
+
+#enviarEmail{
+    float: right;
+    width: 45%;
+}
+
+#emaill{
     float: right;
     width: 45%;
 }

@@ -57,13 +57,7 @@ var server = app.listen(8081, function () {
 
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
-var config = {
-    apiKey: "AIzaSyAQfLYCWYvO9vxIBkcn6xzxS-ir_M1hclc",
-    authDomain: "projectogp-a5b2c.firebaseapp.com",
-    databaseURL: "https://projectogp-a5b2c.firebaseio.com",
-    storageBucket: "projectogp-a5b2c.appspot.com",
-  };
-  firebase.initializeApp(config);
+
 
 
 
