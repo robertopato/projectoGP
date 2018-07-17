@@ -330,9 +330,9 @@ InfoCandidatura.prototype.showCandidatura = function () {
     document.getElementById("formCandidatura").style.display="none";
     var table = document.createElement("table");
     table.id="tableCandidatura";
-    table.appendChild(tableHead(new Candidatura()));
+    table.appendChild(tableHeadWithoutCheckBox(new Candidatura()));
     for(var i=0;i<this.candidaturas.length;i++){
-        table.appendChild(tableLine(this.candidaturas[i]));
+        table.appendChild(tableLineWithoutCheckbox(this.candidaturas[i]));
     }
     var divTable = document.createElement("divTable");
     divTable.setAttribute("id", "divTable");
@@ -396,9 +396,9 @@ InfoRenovacao.prototype.showRenovacao = function () {
     document.getElementById("formRenovacaoContrato").style.display="none";
     var table = document.createElement("table");
     table.id="tableRenovacao";
-    table.appendChild(tableHead(new Renovacao()));
+    table.appendChild(tableHeadWithoutCheckBox(new Renovacao()));
     for(var i=0;i<this.renovacoes.length;i++){
-        table.appendChild(tableLine(this.renovacoes[i]));
+        table.appendChild(tableLineWithoutCheckbox(this.renovacoes[i]));
     }
     var divTable = document.createElement("divTable");
     divTable.setAttribute("id", "divTable");
@@ -459,6 +459,7 @@ InfoRenovacao.prototype.showRenovacao = function () {
 InfoMensagem.prototype.showMensagem = function () {
     console.log("showMensagem");
     //document.getElementById("headerTitle").textContent="StatisticsType";
+    document.getElementById("enviarEmail").style.display="none";
     document.getElementById("formMensagem").style.display="none";
     var table = document.createElement("table");
     table.id="tableMensagem";
@@ -784,6 +785,18 @@ function tableHead(object) {
     return tr;
 };
 
+function tableHeadWithoutCheckBox(object) {
+    var tr = document.createElement("tr");
+    for (var property in object) {
+        if ((object[property] instanceof Function)===false) {
+            var td = document.createElement("th");
+            td.textContent=property[0].toUpperCase() + property.substr(1,property.length-1);;
+            tr.appendChild(td);
+        }
+    }
+    return tr;
+};
+
 /**
  * Função que recebe um qualquer objeto e retorna dinamicamente uma linha de tabela HTML com informação relativa ao estado das suas propriedades
  * @param {Object} object - objecto do qual vamos transformar o conteudo dos seus atributos em TD
@@ -791,6 +804,18 @@ function tableHead(object) {
 function tableLine(object) {
     var tr = document.createElement("tr");
     tr.appendChild(createCellCheckbox());
+    for (var property in object) {
+        if ((object[property] instanceof Function)===false) {
+            var td = document.createElement("td");
+            td.textContent=object[property];
+            tr.appendChild(td);
+        }
+    }
+    return tr;
+};
+
+function tableLineWithoutCheckbox(object) {
+    var tr = document.createElement("tr");
     for (var property in object) {
         if ((object[property] instanceof Function)===false) {
             var td = document.createElement("td");
@@ -810,6 +835,7 @@ function createCellCheckbox(){
     td.appendChild(check);
     return td;
 }
+
 
 
 
